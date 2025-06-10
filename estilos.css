@@ -1,0 +1,992 @@
+:root {
+    --color-primario: #080808;
+    --color-secundario: #f3bc23;
+    --color-texto-claro: #ffffff;
+    --color-texto-oscuro: #2E2E2E;
+    --color-fondo-claro: #ffffff;
+    --color-fondo-oscuro-footer: #14213D;
+    --sombra-ligera: rgba(20, 33, 61, 0.12);
+    --sombra-media: rgba(20, 33, 61, 0.2);
+    --sombra-fuerte: rgba(20, 33, 61, 0.25);
+    --transicion-suave: 0.3s ease-in-out;
+}
+
+/* ---ESTILOS GLOBALES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: var(--color-texto-oscuro);
+    background-color: #f7f7f7;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--color-primario);
+    margin-bottom: 1em;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    color: var(--color-secundario);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border: none;
+    border-top: 4px solid #2bb80f;
+    margin: 60px auto;
+    width: 80%;
+    max-width: 1000px;
+}
+
+/* --- BARRA DE NAVEGACIÓN --- */
+.site-header {
+    background: var(--color-primario);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+}
+
+.barra-navegacion {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 14px 0;
+}
+
+.barra-navegacion a {
+    color: var(--color-texto-claro);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    transition: color 0.4s ease;
+}
+
+/* Línea debajo del texto */
+.barra-navegacion a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-secundario);
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+/* Efecto al pasar el ratón (hover) */
+.barra-navegacion a:hover::after {
+    width: 100%;
+    /* La línea se expande al 100% */
+    left: 0;
+    /* Vuelve al inicio */
+    transform: translateX(0%);
+    /* Quita la transformación para que la línea se expanda desde la izquierda */
+}
+
+.barra-navegacion a:hover {
+    color: var(--color-secundario);
+}
+
+/* --- SECCIÓN HERO --- */
+.hero {
+    position: relative;
+    padding: 100px 30px;
+    text-align: center;
+    background-image: url('images/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 600px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Filtro oscuro sobre la imagen */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
+/* Asegura que el contenido esté sobre el filtro */
+.hero>* {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    color: var(--color-secundario);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    max-width: 90%;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    font-weight: 500;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    color: var(--color-texto-claro);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* --- CARRUSEL --- */
+.carrusel-auto {
+    position: relative;
+    width: 90%;
+    max-width: 960px;
+    height: 500px;
+    margin: 60px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--color-fondo-claro);
+    box-shadow: 0 8px 25px var(--sombra-media);
+}
+
+.slides-auto {
+    display: flex;
+    width: 300%;
+    /* IMPORTANTE: 100% por cada slide. Si tienes 3 slides, necesitas 300% */
+    height: 100%;
+    animation: deslizamiento 15s infinite ease-in-out;
+}
+
+.slide {
+    width: 33%;
+    height: 300px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+.slide img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: #f0f0f0
+}
+
+/* Animación automática del carrusel */
+@keyframes deslizamiento {
+    0% {
+        transform: translateX(0%);
+    }
+
+    25% {
+        transform: translateX(0%);
+    }
+
+    33% {
+        transform: translateX(-33.333%);
+    }
+
+    58% {
+        transform: translateX(-33.333%);
+    }
+
+    66% {
+        transform: translateX(-66.666%);
+    }
+
+    91% {
+        transform: translateX(-66.666%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+/* --- SECCIÓN PRODUCTOS DESTACADOS / GALERÍA COMPLETA --- */
+.productos-destacados,
+.galeria,
+.info-adicional {
+    width: 90%;
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+    /* Padding interno para que el contenido no toque los bordes */
+}
+
+.productos-destacados h2,
+.galeria h2,
+.info-adicional h2,
+.llamada-accion-final h2 {
+    color: var(--color-primario);
+    /* Títulos de sección en el color principal */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.8rem;
+    position: relative;
+    padding-bottom: 15px;
+    /* Espacio para la línea debajo */
+}
+
+.productos-destacados h2::after,
+.galeria h2::after,
+.info-adicional h2::after,
+.llamada-accion-final h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    /* Longitud de la línea debajo del título */
+    height: 4px;
+    background-color: var(--color-secundario);
+    border-radius: 2px;
+}
+
+.destacados-grid,
+.productos-grid,
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 30px;
+    justify-items: center;
+    align-items: stretch;
+}
+
+.imagen-item {
+    background: var(--color-fondo-claro);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px var(--sombra-ligera);
+    transition: var(--transicion-suave);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.imagen-item:hover {
+    box-shadow: 0 12px 35px var(--sombra-media);
+    transform: translateY(-10px);
+}
+
+.imagen-item a {
+    color: var(--color-texto-oscuro);
+    text-decoration: none;
+    display: block;
+    /* Para que todo el card sea clicable */
+    height: 100%;
+    /* Asegura que el enlace ocupe todo el espacio del card */
+}
+
+.imagen-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.imagen-item h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    color: var(--color-primario);
+}
+
+.imagen-item .precio {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--color-secundario);
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.imagen-item .precio strong {
+    font-size: 18px;
+}
+
+/* --- Botones --- */
+.boton-primario {
+    display: inline-block;
+    background-color: var(--color-secundario);
+    color: var(--color-primario);
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: var(--transicion-suave);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.boton-primario:hover {
+    background-color: #e0ac1f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ver-mas-productos {
+    text-align: center;
+    margin-top: 60px;
+}
+
+/* --- SECCIÓN INFORMACIÓN ADICIONAL (Beneficios) --- */
+.info-adicional {
+    background-color: var(--color-fondo-claro);
+    padding: 60px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px var(--sombra-ligera);
+}
+
+.info-adicional h2 {
+    color: var(--color-primario);
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.beneficio-item {
+    background: #f1efef;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: var(--transicion-suave);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.beneficio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(155, 182, 6, 0.329);
+}
+
+.beneficio-item i {
+    /* Estilos para íconos si usas Font Awesome */
+    font-size: 3.5rem;
+    color: var(--color-secundario);
+    margin-bottom: 20px;
+}
+
+.beneficio-item h3 {
+    font-size: 1.5rem;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+}
+
+.beneficio-item p {
+    font-size: 1rem;
+    color: var(--color-texto-oscuro);
+    line-height: 1.5;
+}
+
+/* --- SECCIÓN LLAMADA A LA ACCIÓN FINAL --- */
+.llamada-accion-final {
+    background: linear-gradient(135deg, var(--color-primario), #333333);
+    color: var(--color-texto-claro);
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 12px;
+    margin: 60px auto;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.llamada-accion-final h2 {
+    color: var(--color-secundario);
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.llamada-accion-final p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* --- PIE DE PÁGINA (FOOTER) --- */
+.footer {
+    background: var(--color-fondo-oscuro-footer);
+    color: var(--color-texto-claro);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    user-select: none;
+    margin-top: 80px;
+}
+
+/* Estilos para enlaces dentro del footer para usarse a futuro */
+.footer a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    transition: var(--transicion-suave);
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- REDES SOCIALES FLOTANTES LATERALES --- */
+.redes-sociales-flotantes {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    /* Ajusta para centrarlo verticalmente */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+    padding: 10px 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.redes-sociales-flotantes a {
+    color: var(--color-texto-claro);
+    font-size: 30px;
+    transition: var(--transicion-suave);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.redes-sociales-flotantes a:hover {
+    color: var(--color-secundario);
+    transform: scale(1.1);
+}
+
+/* --- CHATBOT --- */
+.chatbot-container {
+    position: fixed;
+    bottom: 30px;
+    /* Distancia desde la parte inferior */
+    right: 30px;
+    /* <--- CAMBIO AQUÍ: Distancia desde la parte derecha */
+    z-index: 1000;
+    /* Asegura que esté por encima de casi todo */
+}
+
+#chatbot-toggle {
+    background-color: var(--color-secundario);
+    /* Color dorado para el botón */
+    color: var(--color-primario);
+    /* Texto o icono oscuro */
+    border: none;
+    border-radius: 50%;
+    /* Botón redondo */
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform var(--transicion-suave), background-color var(--transicion-suave);
+}
+
+#chatbot-toggle:hover {
+    transform: translateY(-5px);
+    /* Efecto de "flotar" al pasar el ratón */
+    background-color: #e0ac1f;
+    /* Un poco más oscuro al pasar el ratón */
+}
+
+.chatbot-window {
+    background-color: var(--color-fondo-claro);
+    /* Fondo blanco */
+    border-radius: 10px;
+    /* Mantener todas las esquinas redondeadas para la ventana */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    /* Ancho fijo de la ventana del chat */
+    height: 400px;
+    /* Altura fija */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Oculta el contenido que se desborde */
+    position: absolute;
+    /* Posicionado relativo al contenedor */
+    bottom: calc(100% + 20px);
+    /* Arriba del botón, con un margen de 20px */
+    right: 0;
+    /* <--- CAMBIO AQUÍ: Alineado a la derecha del botón */
+    transform-origin: bottom right;
+    /* <--- CAMBIO AQUÍ: Punto de origen para animaciones */
+    transition: transform var(--transicion-suave), opacity var(--transicion-suave);
+    opacity: 0;
+    /* Invisible por defecto */
+    transform: scale(0.8);
+    /* Más pequeño por defecto */
+    pointer-events: none;
+    /* No interactuable cuando está oculto */
+}
+
+.chatbot-window[hidden] {
+    display: flex;
+    /* Asegura que flexbox funcione incluso con hidden */
+}
+
+/* Estado visible del chatbot */
+.chatbot-window:not([hidden]) {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+    /* Interactuable cuando está visible */
+}
+
+.chatbot-header {
+    background-color: var(--color-primario);
+    /* Fondo oscuro para el encabezado */
+    color: var(--color-texto-claro);
+    padding: 15px;
+    border-top-left-radius: 10px;
+    /* Mantener */
+    border-top-right-radius: 10px;
+    /* Mantener */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#chatbot-close {
+    background: none;
+    border: none;
+    color: var(--color-texto-claro);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color var(--transicion-suave);
+}
+
+#chatbot-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chatbot-body {
+    flex-grow: 1;
+    /* Ocupa el espacio restante */
+    padding: 15px;
+    overflow-y: auto;
+    /* Permite el scroll si hay muchos mensajes */
+    background-color: #f0f0f0;
+    /* Un gris muy claro para el fondo del chat */
+    display: flex;
+    /* Para organizar los mensajes */
+    flex-direction: column;
+    gap: 10px;
+    /* Espacio entre mensajes */
+}
+
+.chatbot-footer {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    background-color: var(--color-fondo-claro);
+    border-bottom-left-radius: 10px;
+    /* Mantener */
+    border-bottom-right-radius: 10px;
+    /* Mantener */
+}
+
+#chatbot-input {
+    flex-grow: 1;
+    /* Ocupa la mayor parte del espacio */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+#chatbot-send {
+    background-color: var(--color-secundario);
+    color: var(--color-primario);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transicion-suave);
+}
+
+#chatbot-send:hover {
+    background-color: #e0ac1f;
+}
+
+/* Estilos para los mensajes del chat */
+.message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+    /* Ancho máximo para los mensajes */
+    line-height: 1.4;
+    word-wrap: break-word;
+    /* Rompe palabras largas */
+}
+
+.message.received {
+    background-color: #e2e2e2;
+    /* Gris claro para mensajes del bot */
+    align-self: flex-start;
+    /* Alinea a la izquierda */
+    border-bottom-left-radius: 5px;
+}
+
+.message.sent {
+    background-color: var(--color-secundario);
+    /* Dorado para mensajes del usuario */
+    color: var(--color-primario);
+    align-self: flex-end;
+    /* Alinea a la derecha */
+    border-bottom-right-radius: 5px;
+}
+
+/* --- MEDIA QUERIES para el Chatbot --- */
+@media (max-width: 500px) {
+    .chatbot-container {
+        bottom: 20px;
+        right: 20px;
+        /* <--- CAMBIO AQUÍ: Alineado a la derecha */
+        left: auto;
+        /* Asegúrate de que 'left' no lo interfiera */
+    }
+
+    #chatbot-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+    }
+
+    .chatbot-window {
+        width: calc(100vw - 40px);
+        /* Ancho completo menos los márgenes */
+        height: 70vh;
+        /* 70% de la altura de la ventana */
+        bottom: calc(100% + 15px);
+        right: 0;
+        /* <--- CAMBIO AQUÍ: Anclado a la derecha del contenedor */
+        left: auto;
+        /* <--- IMPORTANTE: Desactiva left si lo vas a anclar a la derecha */
+        transform: scale(0.8);
+        /* Mantiene la escala */
+        transform-origin: bottom right;
+        /* <--- CAMBIO AQUÍ: Origen para la animación */
+    }
+
+    .chatbot-window:not([hidden]) {
+        transform: scale(1);
+        /* Mantiene la escala */
+    }
+
+    .chatbot-header h3 {
+        font-size: 1rem;
+    }
+
+    #chatbot-close {
+        font-size: 1rem;
+    }
+
+    .chatbot-footer {
+        padding: 8px 10px;
+    }
+
+    #chatbot-input {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    #chatbot-send {
+        padding: 8px 12px;
+        font-size: 1rem;
+    }
+}
+
+
+
+/* --- MEDIA QUERIES (Para Responsividad General) --- */
+
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .carrusel-auto,
+    .productos-destacados,
+    .galeria,
+    .info-adicional,
+    .llamada-accion-final {
+        width: 95%;
+        /* Más ancho en pantallas medianas */
+    }
+
+    .destacados-grid,
+    .productos-grid,
+    .beneficios-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        /* Ajusta columnas */
+    }
+
+    .imagen-item img {
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Estilos para navegación */
+    .barra-navegacion {
+        gap: 20px;
+        /* Reduce el espacio entre enlaces */
+        padding: 10px 0;
+    }
+
+    .barra-navegacion a {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    /* Estilos para la sección Hero */
+    .hero {
+        height: 500px;
+        /* Ajusta la altura del hero */
+        padding: 80px 20px;
+        margin-top: 50px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        max-width: 90%;
+    }
+
+    /* Estilos para títulos y secciones generales */
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .carrusel-auto {
+        height: 300px;
+        /* Altura del carrusel en móviles */
+    }
+
+    .destacados-grid,
+    .productos-grid,
+    .beneficios-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        /* Más pequeñas en móviles */
+        gap: 20px;
+    }
+
+    .imagen-item img {
+        height: 140px;
+    }
+
+    .imagen-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .imagen-item .precio {
+        font-size: 1.1rem;
+    }
+
+    .boton-primario {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+
+    .llamada-accion-final h2 {
+        font-size: 2.2rem;
+    }
+
+    .llamada-accion-final p {
+        font-size: 1.1rem;
+    }
+
+    .info-adicional,
+    .llamada-accion-final {
+        padding: 40px 15px;
+    }
+
+    /* Estilos para las redes sociales flotantes en tabletas */
+    .redes-sociales-flotantes {
+        gap: 10px;
+        padding: 8px 4px;
+    }
+
+    .redes-sociales-flotantes a {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Estilos para navegación */
+    .barra-navegacion {
+        flex-wrap: wrap;
+        /* Permite que los enlaces se envuelvan */
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .barra-navegacion a {
+        font-size: 0.8rem;
+    }
+
+    /* Estilos para la sección Hero */
+    .hero {
+        height: 400px;
+        padding: 60px 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* Estilos para títulos y secciones generales */
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .carrusel-auto {
+        height: 250px;
+    }
+
+    .destacados-grid,
+    .productos-grid,
+    .beneficios-grid {
+        grid-template-columns: 1fr;
+        /* Una columna en pantallas muy pequeñas */
+        max-width: 300px;
+        /* Limita el ancho de los ítems */
+        margin: 0 auto;
+        /* Centra el grid */
+    }
+
+    .imagen-item {
+        max-width: 100%;
+        /* Ocupa el ancho completo de la columna */
+    }
+
+    .imagen-item img {
+        height: 180px;
+        /* Asegura un buen tamaño de imagen en una columna */
+    }
+
+    .llamada-accion-final h2 {
+        font-size: 1.8rem;
+    }
+
+    .llamada-accion-final p {
+        font-size: 1rem;
+    }
+
+    /* Consideraciones para las redes sociales flotantes en móviles (opciones comentadas) */
+    /* .redes-sociales-flotantes { display: none; } */
+    /* Opción: Ocultarlas en móviles */
+    /* .redes-sociales-flotantes {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        flex-direction: row;
+        justify-content: space-around;
+        border-radius: 8px 8px 0 0;
+        padding: 10px;
+    } */
+}
